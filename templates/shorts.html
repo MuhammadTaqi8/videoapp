@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Shorts Feed | VidShare{% endblock %}
+
+{% block content %}
+<h2>Shorts</h2>
+
+<div class="shorts-feed">
+    {% for video in videos %}
+        <div class="shorts-card">
+            <video class="shorts-video" controls preload="metadata">
+                <source src="{{ video['url'] }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="shorts-info">
+                <h3>{{ video['title'] }}</h3>
+                <p class="meta">
+                    {{ video['publisher'] }} • 
+                    Genre: {{ video['genre'] or "N/A" }} • 
+                    Rated: {{ video['age_rating'] or "N/A" }}
+                </p>
+                <div class="shorts-actions">
+                    <form method="POST" action="{{ url_for('like') }}" class="like-form" data-video-id="{{ video['id'] }}">
+                        <button type="button" class="like-btn" data-liked="false">❤️</button>
+                        <span class="like-count">{{ video['like_count'] }}</span>
+                    </form>
+                    <a href="{{ url_for('watch', video_id=video['id']) }}" class="comment-link">
+                        💬 {{ video['comment_count'] }} Comments
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const form = btn.closest('.like-form');
+        const videoId = form.dataset.videoId;
+        const liked = btn.dataset.liked === 'true';
+        const res = await fetch("{{ url_for('like') }}", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `video_id=${videoId}&liked=${!liked}`
+        });
+        const data = await res.json();
+        if (data.success) {
+            form.querySelector('.like-count').textContent = data.like_count;
+            btn.dataset.liked = (!liked).toString();
+        }
+    });
+});
+</script>
+{% endblock %}

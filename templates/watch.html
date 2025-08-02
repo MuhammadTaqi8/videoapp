@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Watch Video | VidShare{% endblock %}
+
+{% block content %}
+<div class="watch-container">
+    <video controls class="watch-video">
+        <source src="{{ video['url'] }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="video-details">
+        <h2>{{ video['title'] }}</h2>
+        <p><strong>Publisher:</strong> {{ video['publisher'] }}</p>
+        <p><strong>Producer:</strong> {{ video['producer'] or "N/A" }}</p>
+        <p><strong>Genre:</strong> {{ video['genre'] or "N/A" }}</p>
+        <p><strong>Rating:</strong> {{ video['age_rating'] or "N/A" }}</p>
+    </div>
+
+    <div class="comments-section">
+        <h3>Comments</h3>
+
+        {% if 'user' in session %}
+        <form id="comment-form" method="POST">
+            <textarea name="comment" placeholder="Write your comment..." required></textarea>
+            <select name="rating" required>
+                <option value="" disabled selected>Rating</option>
+                {% for i in range(1, 6) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="video_id" value="{{ video['id'] }}">
+            <button type="submit">Post Comment</button>
+        </form>
+        {% else %}
+        <p><a href="{{ url_for('login') }}">Login</a> to add a comment.</p>
+        {% endif %}
+
+        <ul class="comment-list">
+            {% for c in comments %}
+            <li>
+                <p><strong>{{ c['username'] }}</strong> rated {{ c['rating'] }}/5</p>
+                <p>{{ c['comment'] }}</p>
+                <small>{{ c['created_at'] }}</small>
+            </li>
+            {% else %}
+            <li>No comments yet. Be the first!</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script>
+document.getElementById('comment-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new URLSearchParams(new FormData(form));
+    const res = await fetch("{{ url_for('add_comment') }}", {
+        method: 'POST',
+        body: data
+    });
+    const json = await res.json();
+    if (json.success) {
+        location.reload();
+    } else {
+        alert(json.message);
+    }
+});
+</script>
+{% endblock %}

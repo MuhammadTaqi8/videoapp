@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Creator Dashboard | VidShare{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ session['user']['username'] }} 👋</h2>
+<p>Upload a new short video below.</p>
+
+<form method="POST" action="{{ url_for('upload_video') }}" enctype="multipart/form-data" class="form-box">
+    <input type="text" name="title" placeholder="Title" required>
+    <input type="text" name="publisher" placeholder="Publisher" required>
+    <input type="text" name="producer" placeholder="Producer">
+    <input type="text" name="genre" placeholder="Genre">
+    <select name="age_rating" required>
+        <option value="" disabled selected>Age Rating</option>
+        <option value="G">G</option>
+        <option value="PG">PG</option>
+        <option value="13+">13+</option>
+        <option value="18+">18+</option>
+    </select>
+    <label>Upload File (mp4/webm/ogg):</label>
+    <input type="file" name="file" accept=".mp4,.webm,.ogg">
+    <label>OR Paste Video URL:</label>
+    <input type="url" name="url" placeholder="https://example.com/video.mp4">
+    <button type="submit">Upload Video</button>
+</form>
+
+<hr>
+
+<h3>Your Uploaded Videos</h3>
+<div class="video-grid">
+    {% for video in videos %}
+        <div class="video-card">
+            <video controls>
+                <source src="{{ video['url'] }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h4>{{ video['title'] }}</h4>
+            <p><small>{{ video['genre'] or "N/A" }} | {{ video['age_rating'] }}</small></p>
+        </div>
+    {% else %}
+        <p>No videos uploaded yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
