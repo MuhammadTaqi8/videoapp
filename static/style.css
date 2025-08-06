@@ -1,0 +1,234 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #111;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f8f8;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar nav a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #333;
+}
+
+.navbar .btn {
+    background-color: #111;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.user {
+    margin-left: 1rem;
+    font-weight: bold;
+}
+
+.flash-messages {
+    list-style: none;
+    background: #fff8c6;
+    padding: 1rem;
+    margin: 1rem 2rem;
+    border-left: 4px solid #ffcc00;
+}
+
+.content {
+    padding: 2rem;
+}
+
+
+.form-box {
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-box input, .form-box select, .form-box button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.form-box button {
+    background-color: #111;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.form-box button:hover {
+    background-color: #333;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.video-card {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 1rem;
+    background: #fafafa;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.shorts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.shorts-card {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    background: #fff;
+}
+
+.shorts-video {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    background: #000;
+}
+
+.shorts-info {
+    padding: 1rem;
+}
+
+.shorts-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.meta {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.shorts-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.like-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.like-count {
+    font-weight: bold;
+}
+
+.comment-link {
+    color: #0077cc;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.watch-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 1rem;
+}
+
+.watch-video {
+    width: 100%;
+    max-height: 500px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.video-details p {
+    margin: 0.2rem 0;
+}
+
+.comments-section {
+    margin-top: 2rem;
+}
+
+.comments-section h3 {
+    margin-bottom: 1rem;
+}
+
+#comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+#comment-form textarea {
+    padding: 0.75rem;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 80px;
+}
+
+#comment-form select {
+    width: 100px;
+    padding: 0.5rem;
+}
+
+.comment-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.comment-list li {
+    border-bottom: 1px solid #eee;
+    padding: 0.75rem 0;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+input[type="file"] {
+    padding: 0.3rem;
+}
+
+hr {
+    margin: 3rem 0 2rem;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.video-card video {
+    width: 100%;
+    border-radius: 8px;
+}
